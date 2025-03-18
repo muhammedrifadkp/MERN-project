@@ -114,11 +114,6 @@ PORT=5000
 
 ---
 
-##  Deployment (Optional)
-If time permits, deploy the backend using **Render/Vercel** and the frontend using **Netlify/Vercel**.
-
----
-
 ##  Evaluation Criteria
 - ✅ Code quality and organization
 - ✅ UI/UX design and responsiveness
