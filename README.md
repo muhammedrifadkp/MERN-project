@@ -51,7 +51,9 @@ This project is a MERN stack educational platform developed as part of the Texol
    - Create a `.env` file in the `back-end` directory and add:
      ```env
      MONGO_URI=your-mongodb-uri
+     
 JWT_SECRET=your-jwt-secret
+
 PORT=5000
 
      ```
