@@ -37,13 +37,13 @@ This project is a MERN stack educational platform developed as part of the Texol
 ## Screenshots
 
 ### 🔹 Registration Page
-![Registration Page](screenshots/register.png)
+![Registration Page](front-end\public\screenshots\register.PNG)
 
 ### 🔹 Login Page
-![Login Page](screenshots/login.png)
+![Login Page](front-end\public\screenshots\Login.PNG)
 
 ### 🔹 Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](front-end\public\screenshots\dashboard.PNG)
 
 ---
 
