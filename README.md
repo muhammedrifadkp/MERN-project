@@ -35,19 +35,15 @@ This project is a MERN stack educational platform developed as part of the Texol
 
 ---
 ## Screenshots
-![Registration Page](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/register.PNG)
-![Login Page](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/login.PNG)
-![Dashboard](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/dashboard.PNG)
-
 
 ### 🔹 Registration Page
-![Registration Page](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/screenshots/register.PNG)
+![Registration Page](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/register.PNG)
 
 ### 🔹 Login Page
-![Login Page](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/screenshots/login.PNG)
+![Login Page](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/login.PNG)
 
 ### 🔹 Dashboard
-https://github.com/muhammedrifadkp/MERN-project/blob/main/front-end/public/screenshots/dashboard.PNG
+![Dashboard](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/dashboard.PNG)
 
 ---
 
