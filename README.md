@@ -50,9 +50,10 @@ This project is a MERN stack educational platform developed as part of the Texol
 3. Set up the environment variables:
    - Create a `.env` file in the `back-end` directory and add:
      ```env
-     MONGO_URI=mongodb://127.0.0.1:27017/tseep_academy
-JWT_SECRET=768fdb572dc8f5835cb9ed50ac29bb2eddf9942f0fe08291d7f3350cc6a9d6b94160ac8b3f785c9f30e4a9c3b25211bea99cd8021f19bcd0a719351e7512226a
+     MONGO_URI=your-mongodb-uri
+JWT_SECRET=your-jwt-secret
 PORT=5000
+
      ```
 4. Start the backend server:
    ```bash
