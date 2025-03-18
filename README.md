@@ -34,6 +34,18 @@ This project is a MERN stack educational platform developed as part of the Texol
 - Implemented TSEEP Academy branding with blue color scheme
 
 ---
+## Screenshots
+
+### 🔹 Registration Page
+![Registration Page](screenshots/register.png)
+
+### 🔹 Login Page
+![Login Page](screenshots/login.png)
+
+### 🔹 Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+---
 
 ##  Installation & Setup
 
