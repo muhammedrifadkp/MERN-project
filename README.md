@@ -2,54 +2,63 @@
 
 This project is a MERN stack educational platform developed as part of the Texol World Machine Test. It includes user authentication, course management, and a responsive UI using Tailwind CSS.
 
-##  Tech Stack
+---
+
+## 🚀 Features
+
+### **Authentication System**
+- User registration with form validation.
+- Login functionality with validation.
+- Password encryption using bcrypt.
+- JWT token-based authentication.
+
+### **Course Management**
+- Display a course catalog with search options.
+- Display at least 5 courses per page.
+- Allow users to add/remove courses from their profile.
+- Display course details including duration, instructor, and difficulty level.
+- Show ratings and student completion statistics.
+
+### **UI/UX Design**
+- Fully responsive design for mobile, tablet, and desktop.
+- Dashboard with personalized greeting and key statistics.
+- Course listing and course detail pages.
+- Implemented TSEEP Academy branding with a blue color scheme.
+
+---
+
+## 🛠️ Tech Stack
 
 - **Frontend**: React.js, React Router, Tailwind CSS
 - **Backend**: Node.js, Express.js, MongoDB, Mongoose
 - **Authentication**: JWT, bcrypt
-- **State Management**: useState, useEffect
+- **State Management**: React Hooks (`useState`, `useEffect`)
 - **API Client**: Axios
 
 ---
 
-##  Features
+## 📸 Screenshots
 
-### Authentication System
-- User registration with form validation
-- Login functionality with validation
-- Password encryption using bcrypt
-- JWT token-based authentication
+### **Registration Page**
+![Registration Page](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/register.PNG)
 
-### Course Management
-- Display a course catalog with search options
-- Display at least 5 courses per page
-- Allow users to add/remove courses from their profile
-- Display course details including duration, instructor, and difficulty level
-- Show ratings and student completion statistics
+### **Login Page**
+![Login Page](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/Login.PNG)
 
-### UI/UX Design
-- Fully responsive design for mobile, tablet, and desktop
-- Dashboard with personalized greeting & key statistics
-- Course listing and course detail pages
-- Implemented TSEEP Academy branding with blue color scheme
+### **Dashboard**
+![Dashboard](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/dashboard.PNG)
 
----
-## Screenshots
+### **Courses**
+![Dashboard](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/courses.PNG)
 
-### 🔹 Registration Page
-![Registration Page](front-end\public\screenshots\register.PNG)
-
-### 🔹 Login Page
-![Login Page](front-end\public\screenshots\Login.PNG)
-
-### 🔹 Dashboard
-![Dashboard](front-end\public\screenshots\dashboard.PNG)
+### **My Courses**
+![Dashboard](https://raw.githubusercontent.com/muhammedrifadkp/MERN-project/main/front-end/public/screenshots/myCourses.PNG)
 
 ---
 
-##  Installation & Setup
+## 🛠️ Installation & Setup
 
-### 1 Backend Setup
+### **1. Backend Setup**
 
 1. Navigate to the `back-end` folder:
    ```bash
@@ -111,11 +120,6 @@ PORT=5000
 | GET    | `/:id`          | Get course details               |
 | POST   | `/add-course`   | Add a new course to MongoDB      |
 | DELETE | `/:id`          | Remove a course                  |
-
----
-
-##  Deployment (Optional)
-If time permits, deploy the backend using **Render/Vercel** and the frontend using **Netlify/Vercel**.
 
 ---
 

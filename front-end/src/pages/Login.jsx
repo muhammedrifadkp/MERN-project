@@ -1,49 +1,53 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import PhoneInput from 'react-phone-input-2';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import API from '../services/api'; // Import API instance
-import 'react-phone-input-2/lib/style.css';
+// front-end\src\pages\Login.jsx
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import PhoneInput from "react-phone-input-2";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import API from "../services/api";
+import "react-phone-input-2/lib/style.css";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    phone: '',
-    password: '',
-    rememberMe: false
+    phone: "",
+    password: "",
+    rememberMe: false,
   });
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handlePhoneChange = (value) => {
-    setFormData(prev => ({ ...prev, phone: value }));
+    setFormData((prev) => ({ ...prev, phone: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-
+    setError("");
+  
     try {
-      const res = await API.post('/auth/login', {
+      const res = await API.post("/auth/login", {
         phone: formData.phone,
-        password: formData.password
+        password: formData.password,
       });
-
-      localStorage.setItem('token', res.data.token); // Store token
-      navigate('/home'); // Redirect to dashboard
+  
+      // Store the token in localStorage
+      localStorage.setItem("token", res.data.token);
+  
+      // Redirect to the home page
+      navigate("/home");
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -52,7 +56,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side Image */}
-      <div 
+      <div
         className="hidden md:flex md:w-1/2 bg-cover bg-center"
         style={{ backgroundImage: `url('/leftimg.png')` }}
       />
@@ -64,24 +68,30 @@ export default function Login() {
             <img src="/logo.png" alt="TSEEP Logo" className="h-12" />
           </div>
 
-          <h1 className="text-2xl font-semibold text-center mb-4">Welcome Back to TSEEP</h1>
-          <p className="text-center text-gray-600 mb-8">Enter your username and password to continue.</p>
+          <h1 className="text-2xl font-semibold text-center mb-4">
+            Welcome Back to TSEEP
+          </h1>
+          <p className="text-center text-gray-600 mb-8">
+            Enter your username and password to continue.
+          </p>
 
           {error && <p className="text-red-500 text-center">{error}</p>}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Mobile Number Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Mobile number</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Mobile number
+              </label>
               <div className="border border-gray-300 rounded-md p-2 pl-3 focus-within:ring-2 focus-within:ring-tseep-blue">
                 <PhoneInput
-                  country={'in'}
+                  country={"in"}
                   value={formData.phone}
                   onChange={handlePhoneChange}
                   inputProps={{
-                    name: 'phone',
+                    name: "phone",
                     required: true,
-                    className: 'w-full focus:outline-none pl-12'
+                    className: "w-full focus:outline-none pl-12",
                   }}
                 />
               </div>
@@ -89,10 +99,12 @@ export default function Login() {
 
             {/* Password Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
               <div className="relative">
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
@@ -123,9 +135,14 @@ export default function Login() {
                   onChange={handleInputChange}
                   className="h-4 w-4 text-tseep-blue focus:ring-tseep-blue border-gray-300 rounded"
                 />
-                <label className="ml-2 block text-sm text-gray-700">Remember me</label>
+                <label className="ml-2 block text-sm text-gray-700">
+                  Remember me
+                </label>
               </div>
-              <Link to="/forgot-password" className="text-sm text-tseep-blue hover:underline">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-tseep-blue hover:underline"
+              >
                 Forgot Password
               </Link>
             </div>
@@ -135,10 +152,10 @@ export default function Login() {
               type="submit"
               disabled={loading}
               className={`w-full bg-tseep-blue text-white py-2 px-4 rounded-md ${
-                loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-opacity-90 transition-colors'
+                loading ? "opacity-50 cursor-not-allowed" : "hover:bg-opacity-90 transition-colors"
               }`}
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? "Signing in..." : "Sign In"}
             </button>
 
             {/* Social Login */}
@@ -171,15 +188,21 @@ export default function Login() {
             {/* Register Link */}
             <div className="text-center mt-6">
               <span className="text-gray-600">Don't have an account? </span>
-              <Link to="/register" className="text-tseep-blue hover:underline">Register Now</Link>
+              <Link to="/register" className="text-tseep-blue hover:underline">
+                Register Now
+              </Link>
             </div>
 
             {/* Footer Links */}
             <div className="text-center text-sm text-gray-500 mt-8">
               <p>© 2025 TSEEP Academy</p>
               <div className="flex justify-center space-x-4 mt-2">
-                <Link to="/privacy" className="hover:text-tseep-blue">Privacy policy</Link>
-                <Link to="/terms" className="hover:text-tseep-blue">Terms & Conditions</Link>
+                <Link to="/privacy" className="hover:text-tseep-blue">
+                  Privacy policy
+                </Link>
+                <Link to="/terms" className="hover:text-tseep-blue">
+                  Terms & Conditions
+                </Link>
               </div>
             </div>
           </form>
@@ -187,4 +210,4 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};

@@ -1,3 +1,4 @@
+// back-end\routes\authRoutes.js
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -33,15 +34,13 @@ router.post("/register", async (req, res) => {
 // Login
 router.post("/login", async (req, res) => {
   try {
-    console.log(req.body); // Debugging: Log request body
-
-    const { phone, password } = req.body; // Destructure values
+    const { phone, password } = req.body;
 
     if (!phone || !password) {
       return res.status(400).json({ message: "Mobile & password required!" });
     }
 
-    const mobile = phone.trim(); // Trim to remove spaces
+    const mobile = phone.trim();
     const user = await User.findOne({ mobile });
 
     if (!user) {
@@ -55,13 +54,9 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 3600000, // 1 hour
-    }).json({
+    res.json({
       message: "Login successful",
+      token, // Send the token in the response
       user: { id: user._id, username: user.username, email: user.email, mobile: user.mobile },
     });
   } catch (error) {

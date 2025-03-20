@@ -1,3 +1,4 @@
+// back-end\routes\courseRoutes.js
 import express from "express";
 import multer from "multer";
 import Course from "../models/Course.js";

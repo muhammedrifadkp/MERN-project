@@ -1,3 +1,4 @@
+// front-end\src\App.jsx
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
@@ -7,6 +8,7 @@ import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import Cart from "./pages/Cart";
 import AddCourse from "./pages/AddCourse";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -19,22 +21,24 @@ function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
 
       {/* Protected Routes (Require Authentication) */}
-      <Route
-        path="/*"
-        element={
-          <Layout>
-            <Routes>
-              <Route path="/home" element={<Home />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/courses/:id" element={<CourseDetail />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/add-course" element={<AddCourse />} />
-            </Routes>
-          </Layout>
-        }
-      />
+      <Route element={<ProtectedRoute />}>
+        <Route
+          path="/*"
+          element={
+            <Layout>
+              <Routes>
+                <Route path="/home" element={<Home />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/courses/:id" element={<CourseDetail />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/add-course" element={<AddCourse />} />
+              </Routes>
+            </Layout>
+          }
+        />
+      </Route>
     </Routes>
   );
-}
+};
 
 export default App;

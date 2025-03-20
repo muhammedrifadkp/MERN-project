@@ -1,25 +1,60 @@
-import { Link } from 'react-router-dom';
+// front-end\src\pages\Home.jsx
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Import Link
+import API from "../services/api";
 
 export default function Home() {
-  const stats = [
-    { label: 'Support', value: '100%' },
-    { label: 'Users', value: '5k+' },
-    { label: 'Happy Clients', value: '100%' }
-  ];
+  const [user, setUser] = useState(null);
+  const [stats, setStats] = useState([
+    { label: "Support", value: "100%" },
+    { label: "Users", value: "5k+" },
+    { label: "Happy Clients", value: "100%" },
+  ]);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await API.get("/users/profile");
+        setUser(response.data);
+      } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+      }
+    };
+
+    const fetchStats = async () => {
+      try {
+        const response = await API.get("/users/stats");
+        setStats([
+          { label: "Users", value: response.data.totalUsers },
+          { label: "Courses", value: response.data.totalCourses },
+          { label: "Reviews", value: response.data.totalReviews },
+        ]);
+      } catch (error) {
+        console.error("Failed to fetch stats:", error);
+      }
+    };
+
+    fetchUserProfile();
+    fetchStats();
+  }, []);
 
   return (
     <div className="p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2">
-            <h2 className="text-lg font-medium text-tseep-blue mb-1">Hello Melissa</h2>
-            <p className="text-gray-600 text-sm mb-6">Start your learning journey today!</p>
-            
+            <h2 className="text-lg font-medium text-tseep-blue mb-1">
+              Hello {user?.username || "User"}
+            </h2>
+            <p className="text-gray-600 text-sm mb-6">
+              Start your learning journey today!
+            </p>
+
             <h1 className="text-4xl font-bold mb-1">
               A startup for <span className="text-pink-500">Transforming</span>
             </h1>
             <h1 className="text-5xl font-bold text-tseep-blue mb-6">Careers</h1>
-            
+
             <p className="text-gray-700 text-sm mb-8 max-w-md">
               Bridging the Gap Between Education and Industry Readiness with Proven Frameworks
             </p>
@@ -54,11 +89,11 @@ export default function Home() {
             <div className="absolute bottom-1/3 right-24 w-4 h-4 bg-white rounded-full"></div>
             
             <div className="relative z-10">
-  <img
-    src="/woman-with-laptop.png"
-    alt="Woman with laptop"
-    className="w-[80%] rounded-3xl" // CHANGED: Fixed width class
-  />
+              <img
+                src="/woman-with-laptop.png"
+                alt="Woman with laptop"
+                className="w-[80%] rounded-3xl"
+              />
               
               {/* Review badge */}
               <div className="absolute bottom-8 right-12 bg-white rounded-lg py-2 px-4 shadow-lg">

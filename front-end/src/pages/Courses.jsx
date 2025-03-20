@@ -1,10 +1,11 @@
+// front-end\src\pages\Courses.jsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import API from "../services/api";
 
 export default function Courses() {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,12 +13,9 @@ export default function Courses() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/courses");
-        if (!response.ok) throw new Error("Failed to fetch courses");
-
-        const data = await response.json();
-        setCourses(data);
-        setFilteredCourses(data);
+        const response = await API.get("/courses");
+        setCourses(response.data);
+        setFilteredCourses(response.data);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -28,10 +26,22 @@ export default function Courses() {
     fetchCourses();
   }, []);
 
-  const addToCart = (course) => {
-    const updatedCart = [...cart, course];
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  const enrollCourse = async (courseId) => {
+    try {
+      await API.post("/users/enroll", { courseId });
+      alert("Course enrolled successfully!");
+    } catch (error) {
+      console.error("Error enrolling course:", error);
+    }
+  };
+
+  const unenrollCourse = async (courseId) => {
+    try {
+      await API.post("/users/unenroll", { courseId });
+      alert("Course unenrolled successfully!");
+    } catch (error) {
+      console.error("Error unenrolling course:", error);
+    }
   };
 
   // Search filter function
@@ -99,9 +109,9 @@ export default function Courses() {
                 </p>
                 <button
                   className="text-white bg-blue-600 px-3 py-1 rounded-md hover:bg-blue-700"
-                  onClick={() => addToCart(course)}
+                  onClick={() => enrollCourse(course._id)}
                 >
-                  Add
+                  Enroll
                 </button>
               </div>
 

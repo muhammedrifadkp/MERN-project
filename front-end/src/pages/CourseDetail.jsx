@@ -1,3 +1,4 @@
+// front-end\src\pages\CourseDetail.jsx
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -64,13 +65,25 @@ export default function CourseDetail() {
             <div className="flex items-center justify-between mt-4">
               <div className="text-sm">
                 <p>📘 <strong>4 Modules</strong> (From Basics)</p>
-                <p>⭐ <strong>4.6</strong> (1,448 reviews)</p>
+                <p>⭐ <strong>{course.ratings}</strong> (1,448 reviews)</p>
               </div>
               <div className="text-sm">
-                <p>🎓 <strong>Beginner Level</strong></p>
+                <p>🎓 <strong>{course.enrolledStudents}</strong> Students Enrolled</p>
                 <p>⏳ <strong>6 Months</strong> (~256 Hours)</p>
               </div>
             </div>
+          </div>
+
+          {/* Course Modules */}
+          <div className="mt-6 p-4 border rounded-lg">
+            <h2 className="text-lg font-semibold">Course Modules</h2>
+            <ul className="list-disc list-inside mt-2">
+              {course.modules?.map((module, index) => (
+                <li key={index} className="text-gray-700 text-sm">
+                  {module}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

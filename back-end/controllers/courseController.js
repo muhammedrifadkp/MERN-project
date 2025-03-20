@@ -1,3 +1,4 @@
+// back-end\controllers\courseController.js
 import Course from "../models/Course.js";
 import multer from "multer";
 import path from "path";

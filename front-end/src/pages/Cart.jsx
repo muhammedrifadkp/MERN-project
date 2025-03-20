@@ -1,47 +1,48 @@
+// front-end\src\pages\Cart.jsx
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import API from "../services/api";
 
 export default function Cart() {
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredCart, setFilteredCart] = useState(cart);
-  const navigate = useNavigate();
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem("cart")) || []);
+    const fetchEnrolledCourses = async () => {
+      try {
+        const response = await API.get("/users/enrolled-courses");
+        setEnrolledCourses(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchEnrolledCourses();
   }, []);
 
-  // Function to remove a course from cart
-  const removeFromCart = (courseId) => {
-    const updatedCart = cart.filter((course) => course._id !== courseId);
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  const unenrollCourse = async (courseId) => {
+    try {
+      await API.post("/users/unenroll", { courseId });
+      setEnrolledCourses((prev) =>
+        prev.filter((course) => course._id !== courseId)
+      );
+      alert("Course unenrolled successfully!");
+    } catch (error) {
+      console.error("Error unenrolling course:", error);
+    }
   };
 
-  // Search filter function
-  useEffect(() => {
-    if (searchTerm.trim() === "") {
-      setFilteredCart(cart);
-    } else {
-      const filtered = cart.filter((course) =>
-        course.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredCart(filtered);
-    }
-  }, [searchTerm, cart]);
+  if (loading) return <p>Loading enrolled courses...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="p-8 pt-20">
-      {/* Top Header with Search Bar */}
+      {/* Top Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold text-gray-800">My Courses</h1>
-        <input
-          type="text"
-          placeholder="Search Course"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 outline-none w-1/3"
-        />
       </div>
 
       {/* Navigation Tabs */}
@@ -56,54 +57,42 @@ export default function Cart() {
         </div>
       </div>
 
-      {/* Browse More Courses Button */}
-      {/* <div className="flex justify-end mb-6">
-        <button
-          onClick={() => navigate("/courses")}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Browse More Courses
-        </button>
-      </div> */}
-
-      {/* Course Grid */}
-      {filteredCart.length === 0 ? (
-        <p className="text-gray-600">Your cart is empty.</p>
+      {/* Enrolled Courses Grid */}
+      {enrolledCourses.length === 0 ? (
+        <p className="text-gray-600">You have not enrolled in any courses yet.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {filteredCart.map((course) => (
-            <div
-              key={course._id}
-              className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border"
-            >
+          {enrolledCourses.map((course) => (
+            <div key={course._id} className="bg-white shadow-md rounded-lg overflow-hidden border">
               <img
                 src={`http://localhost:5000${course.imageUrl}`}
                 alt={course.title}
-                className="w-full h-48 object-cover"
+                className="w-full h-40 object-cover"
               />
+
               <div className="p-4">
-                <h3 className="font-semibold mb-2">{course.title}</h3>
-                {/* <p className="text-sm text-gray-600 mb-4">{course.description}</p> */}
+                <h2 className="text-lg font-bold text-gray-800">{course.title}</h2>
                 <span className="bg-green-100 text-green-600 text-xs font-semibold px-2 py-1 rounded-full inline-block mt-1">
-                Beginner
-              </span>
+                  Beginner
+                </span>
 
-              <p className="text-sm text-gray-500 mt-2">200+ Students Completed</p>
+                <p className="text-sm text-gray-500 mt-2">200+ Students Completed</p>
 
-                <div className="flex justify-between items-center">
-                  <Link
-                    to={`/courses/${course._id}`}
-                    className="text-blue-500 hover:underline text-sm font-medium"
-                  >
-                    View More →
-                  </Link>
+                <div className="flex justify-between items-center mt-3">
                   <button
-                    onClick={() => removeFromCart(course._id)}
-                    className="px-4 py-1 bg-red-500 text-white rounded hover:bg-opacity-90 transition-colors"
+                    className="text-white bg-red-600 px-3 py-1 rounded-md hover:bg-red-700"
+                    onClick={() => unenrollCourse(course._id)}
                   >
                     Remove
                   </button>
                 </div>
+
+                <Link
+                  to={`/courses/${course._id}`}
+                  className="block text-blue-500 text-sm font-semibold mt-3 hover:underline"
+                >
+                  Learn More →
+                </Link>
               </div>
             </div>
           ))}
@@ -111,4 +100,4 @@ export default function Cart() {
       )}
     </div>
   );
-}
+};

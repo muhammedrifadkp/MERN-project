@@ -1,3 +1,4 @@
+// back-end\middleware\authMiddleware.js
 import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
@@ -9,6 +10,8 @@ const authMiddleware = (req, res, next) => {
     }
 
     const token = authHeader.split(" ")[1];
+    console.log("Token:", token); // Debug log
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
     req.user = decoded;  

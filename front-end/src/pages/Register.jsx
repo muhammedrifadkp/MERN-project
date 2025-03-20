@@ -1,60 +1,58 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import PhoneInput from 'react-phone-input-2';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import 'react-phone-input-2/lib/style.css';
-import API from '../services/api';
-
+// front-end\src\pages\Register.jsx
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import PhoneInput from "react-phone-input-2";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import "react-phone-input-2/lib/style.css";
+import API from "../services/api";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
-    agreeTerms: false
+    username: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    agreeTerms: false,
   });
   const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
- const handleSubmit = async (e) => {
-     e.preventDefault();
- 
-     try {
-      const data = await API.post("auth/register",{username : formData.username,
-        email: formData.email,
-        mobile : formData.phone,
-        password : formData.password,
-})
-console.log(data.data)
- 
-      //  localStorage.setItem('token', res.data.token);
-       navigate('/login'); 
-     } catch (err) {
-       console.log(err.response?.data?.message || 'Register failed');
-     } finally {
-      //  setLoading(false);
-     }
-   };
- 
-
   const handlePhoneChange = (value) => {
-    setFormData(prev => ({ ...prev, phone: value }));
+    setFormData((prev) => ({ ...prev, phone: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await API.post("/auth/register", {
+        username: formData.username,
+        email: formData.email,
+        mobile: formData.phone,
+        password: formData.password,
+      });
+
+      // Redirect to login after successful registration
+      navigate("/login");
+    } catch (err) {
+      console.error(err.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
     <div className="min-h-screen flex">
       {/* Left Side Image */}
-      <div 
+      <div
         className="hidden md:flex md:w-1/2 bg-cover bg-center"
         style={{ backgroundImage: `url('/leftimg.png')` }}
       />
@@ -66,15 +64,19 @@ console.log(data.data)
             <img src="/logo.png" alt="TSEEP Logo" className="h-12" />
           </div>
 
-          <h1 className="text-2xl font-semibold text-center mb-4">Welcome to TSEEP</h1>
-          <p className="text-center text-gray-600 mb-8">Create your account to get started.</p>
+          <h1 className="text-2xl font-semibold text-center mb-4">
+            Welcome to TSEEP
+          </h1>
+          <p className="text-center text-gray-600 mb-8">
+            Create your account to get started.
+          </p>
 
-          <form className="space-y-6"
-          onSubmit={handleSubmit}
-          >
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Username Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Username
+              </label>
               <input
                 type="text"
                 name="username"
@@ -87,7 +89,9 @@ console.log(data.data)
 
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
@@ -100,16 +104,18 @@ console.log(data.data)
 
             {/* Mobile Number Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Mobile number</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Mobile number
+              </label>
               <div className="border border-gray-300 rounded-md p-2 pl-3 focus-within:ring-2 focus-within:ring-tseep-blue">
                 <PhoneInput
-                  country={'in'}
+                  country={"in"}
                   value={formData.phone}
                   onChange={handlePhoneChange}
                   inputProps={{
-                    name: 'phone',
+                    name: "phone",
                     required: true,
-                    className: 'w-full focus:outline-none pl-12'
+                    className: "w-full focus:outline-none pl-12",
                   }}
                 />
               </div>
@@ -117,10 +123,12 @@ console.log(data.data)
 
             {/* Password Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
               <div className="relative">
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
@@ -142,10 +150,12 @@ console.log(data.data)
 
             {/* Confirm Password Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Confirm Password
+              </label>
               <div className="relative">
                 <input
-                  type={showConfirmPassword ? 'text' : 'password'}
+                  type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
@@ -175,11 +185,11 @@ console.log(data.data)
                 className="h-4 w-4 text-tseep-blue focus:ring-tseep-blue border-gray-300 rounded"
               />
               <label className="ml-2 block text-sm text-gray-700">
-                I agree to the{' '}
+                I agree to the{" "}
                 <Link to="/terms" className="text-tseep-blue hover:underline">
                   Terms & Conditions
-                </Link>
-                {' '}and{' '}
+                </Link>{" "}
+                and{" "}
                 <Link to="/privacy" className="text-tseep-blue hover:underline">
                   Privacy Policy
                 </Link>
@@ -190,7 +200,6 @@ console.log(data.data)
             <button
               type="submit"
               className="w-full bg-tseep-blue text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors"
-              
             >
               Register
             </button>
@@ -226,15 +235,21 @@ console.log(data.data)
             {/* Login Link */}
             <div className="text-center mt-6">
               <span className="text-gray-600">Already have an account? </span>
-              <Link to="/login" className="text-tseep-blue hover:underline">Sign In</Link>
+              <Link to="/login" className="text-tseep-blue hover:underline">
+                Sign In
+              </Link>
             </div>
 
             {/* Footer Links */}
             <div className="text-center text-sm text-gray-500 mt-8">
               <p>© 2025 TSEEP Academy</p>
               <div className="flex justify-center space-x-4 mt-2">
-                <Link to="/privacy" className="hover:text-tseep-blue">Privacy policy</Link>
-                <Link to="/terms" className="hover:text-tseep-blue">Terms & Conditions</Link>
+                <Link to="/privacy" className="hover:text-tseep-blue">
+                  Privacy policy
+                </Link>
+                <Link to="/terms" className="hover:text-tseep-blue">
+                  Terms & Conditions
+                </Link>
               </div>
             </div>
           </form>
@@ -242,4 +257,4 @@ console.log(data.data)
       </div>
     </div>
   );
-}
+};
