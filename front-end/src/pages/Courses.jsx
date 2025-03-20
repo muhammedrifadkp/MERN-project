@@ -111,7 +111,7 @@ export default function Courses() {
                   className="text-white bg-blue-600 px-3 py-1 rounded-md hover:bg-blue-700"
                   onClick={() => enrollCourse(course._id)}
                 >
-                  Enroll
+                  Add
                 </button>
               </div>
 
