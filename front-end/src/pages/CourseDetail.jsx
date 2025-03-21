@@ -11,7 +11,7 @@ export default function CourseDetail() {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/courses/${id}`);
+        const response = await fetch(`https://mern-project-production-a976.up.railway.app/api/courses/${id}`);
         if (!response.ok) throw new Error("Failed to fetch course details");
 
         const data = await response.json();
@@ -52,7 +52,7 @@ export default function CourseDetail() {
 
           {/* Course Image */}
           <img 
-            src={`http://localhost:5000${course.imageUrl}`} 
+            src={`https://mern-project-production-a976.up.railway.app${course.imageUrl}`} 
             alt={course.title} 
             className="w-full h-64 object-cover rounded-lg mt-4"
           />

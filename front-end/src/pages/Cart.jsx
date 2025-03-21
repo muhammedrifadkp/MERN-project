@@ -65,7 +65,7 @@ export default function Cart() {
           {enrolledCourses.map((course) => (
             <div key={course._id} className="bg-white shadow-md rounded-lg overflow-hidden border">
               <img
-                src={`http://localhost:5000${course.imageUrl}`}
+                src={`https://mern-project-production-a976.up.railway.app${course.imageUrl}`}
                 alt={course.title}
                 className="w-full h-40 object-cover"
               />

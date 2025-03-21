@@ -1,8 +1,8 @@
-// front-end\src\services\api.js
 import axios from "axios";
 
+// Update the baseURL to your Railway back-end URL
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://mern-project-production-a976.up.railway.app/api", // Updated baseURL
   withCredentials: true, // Allows authentication cookies
 });
 

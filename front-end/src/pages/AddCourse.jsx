@@ -46,7 +46,7 @@ const AddCourse = () => {
       formDataToSend.append("price", formData.price);
       formDataToSend.append("image", formData.imageUrl); // Ensure correct key
   
-      await axios.post("http://localhost:5000/api/courses/add", formDataToSend, {
+      await axios.post("https://mern-project-production-a976.up.railway.app/api/courses/add", formDataToSend, {
         headers: { "Content-Type": "multipart/form-data" },
       });
   
@@ -123,7 +123,7 @@ const AddCourse = () => {
             onChange={handleImageChange}
           />
           {imagePreview && (
-  <img src={`http://localhost:5000${imagePreview}`} alt="Course Preview" 
+  <img src={`https://mern-project-production-a976.up.railway.app${imagePreview}`} alt="Course Preview" 
        className="mt-3 w-40 h-40 object-cover rounded-md border" />
 )}
 
